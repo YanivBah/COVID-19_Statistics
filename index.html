@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>COVID-19 Statistics</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="header">
+      <h1>COVID-19 Statistics</h1>
+    </div>
+    <div class="selectors">
+      <div class="continent-selector">
+        <h2><span>Continent</span></h2>
+        <label class="control control--radio"
+          >Asia
+          <input type="radio" name="radio" id="asia" />
+          <div class="control__indicator"></div>
+        </label>
+        <label class="control control--radio"
+          >Europe
+          <input type="radio" name="radio" id="europe" />
+          <div class="control__indicator"></div>
+        </label>
+        <label class="control control--radio"
+          >Africa
+          <input type="radio" name="radio" id="africa" />
+          <div class="control__indicator"></div>
+        </label>
+        <label class="control control--radio"
+          >Americas
+          <input type="radio" name="radio" id="americas" />
+          <div class="control__indicator"></div>
+        </label>
+      </div>
+      <div class="case-selector">
+        <h2><span>Case</span></h2>
+        <label class="control control--radio"
+          >Deaths
+          <input type="radio" name="radio" id="deaths" />
+          <div class="control__indicator"></div>
+        </label>
+        <label class="control control--radio"
+          >Critical
+          <input type="radio" name="radio" id="critical" />
+          <div class="control__indicator"></div>
+        </label>
+        <label class="control control--radio"
+          >Confirmed
+          <input type="radio" name="radio" id="confirmed" />
+          <div class="control__indicator"></div>
+        </label>
+        <label class="control control--radio"
+          >Recovered
+          <input type="radio" name="radio" id="recovered" />
+          <div class="control__indicator"></div>
+        </label>
+      </div>
+    </div>
+    <!-- <canvas id="chart"></canvas> -->
+    <script src="./node_modules/chart.js/dist/Chart.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
