@@ -53,8 +53,11 @@ span {
   border-bottom: 1px solid white;
 }
 .selectors {
-  display: flex;
-  flex-direction: row;
+  /* display: flex; */
+  /* flex-direction: row; */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-bottom: 20px;
 }
 .continent-selector,
 .case-selector {
@@ -62,6 +65,17 @@ span {
   flex-direction: column;
   max-width: 200px;
   margin: 0 auto;
+}
+.view-graph {
+  margin: 0 auto;
+  grid-column: 1 / span 2;
+}
+select#country-select {
+  width: 150px;
+  padding: 0.5rem 0.5rem;
+}
+.graph-btn {
+  padding: 0.5rem 1rem;
 }
 .control {
   display: block;
@@ -118,4 +132,9 @@ control:hover input ~ .control__indicator,
 }
 .control--radio input:disabled ~ .control__indicator:after {
   background: #7b7b7b;
+}
+.graph-container {
+  /* background: #e6e6e6; */
+  padding-left: 10rem;
+  padding-right: 10rem;
 }

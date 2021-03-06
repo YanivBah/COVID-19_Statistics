@@ -16,50 +16,68 @@
         <h2><span>Continent</span></h2>
         <label class="control control--radio"
           >Asia
-          <input type="radio" name="radio" id="asia" />
+          <input type="radio" name="continent" id="asia" />
           <div class="control__indicator"></div>
         </label>
         <label class="control control--radio"
           >Europe
-          <input type="radio" name="radio" id="europe" />
+          <input type="radio" name="continent" id="europe" />
           <div class="control__indicator"></div>
         </label>
         <label class="control control--radio"
           >Africa
-          <input type="radio" name="radio" id="africa" />
+          <input type="radio" name="continent" id="africa" />
           <div class="control__indicator"></div>
         </label>
         <label class="control control--radio"
           >Americas
-          <input type="radio" name="radio" id="americas" />
+          <input type="radio" name="continent" id="americas" />
+          <div class="control__indicator"></div>
+        </label>
+        <label class="control control--radio"
+          >World
+          <input type="radio" name="continent" id="world" />
           <div class="control__indicator"></div>
         </label>
       </div>
       <div class="case-selector">
         <h2><span>Case</span></h2>
         <label class="control control--radio"
+          >All
+          <input type="radio" name="case" id="all" />
+          <div class="control__indicator"></div>
+        </label>
+        <label class="control control--radio"
           >Deaths
-          <input type="radio" name="radio" id="deaths" />
+          <input type="radio" name="case" id="deaths" />
           <div class="control__indicator"></div>
         </label>
         <label class="control control--radio"
           >Critical
-          <input type="radio" name="radio" id="critical" />
+          <input type="radio" name="case" id="critical" />
           <div class="control__indicator"></div>
         </label>
         <label class="control control--radio"
           >Confirmed
-          <input type="radio" name="radio" id="confirmed" />
+          <input type="radio" name="case" id="confirmed" />
           <div class="control__indicator"></div>
         </label>
         <label class="control control--radio"
           >Recovered
-          <input type="radio" name="radio" id="recovered" />
+          <input type="radio" name="case" id="recovered" />
           <div class="control__indicator"></div>
         </label>
       </div>
+      <div class="view-graph">
+        <select name="countrys" id="country-select">
+          <option value="" disabled selected>Select Country</option>
+        </select>
+        <button class="graph-btn">View Graph</button>
+      </div>
     </div>
-    <!-- <canvas id="chart"></canvas> -->
+    <div class="graph-container">
+      <canvas id="chart"></canvas>
+    </div>
     <script src="./node_modules/chart.js/dist/Chart.js"></script>
     <script src="./script.js"></script>
   </body>
