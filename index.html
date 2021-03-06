@@ -15,6 +15,11 @@
       <div class="continent-selector">
         <h2><span>Continent</span></h2>
         <label class="control control--radio"
+          >World
+          <input type="radio" name="continent" id="world" checked />
+          <div class="control__indicator"></div>
+        </label>
+        <label class="control control--radio"
           >Asia
           <input type="radio" name="continent" id="asia" />
           <div class="control__indicator"></div>
@@ -34,17 +39,12 @@
           <input type="radio" name="continent" id="americas" />
           <div class="control__indicator"></div>
         </label>
-        <label class="control control--radio"
-          >World
-          <input type="radio" name="continent" id="world" />
-          <div class="control__indicator"></div>
-        </label>
       </div>
       <div class="case-selector">
         <h2><span>Case</span></h2>
         <label class="control control--radio"
           >All
-          <input type="radio" name="case" id="all" />
+          <input type="radio" name="case" id="all" checked />
           <div class="control__indicator"></div>
         </label>
         <label class="control control--radio"
@@ -75,10 +75,10 @@
         <button class="graph-btn">View Graph</button>
       </div>
     </div>
-    <div class="graph-container">
+    <div class="graph-container hidden">
       <canvas id="chart"></canvas>
     </div>
-    <script src="./node_modules/chart.js/dist/Chart.js"></script>
+    <script src="./Chart.js"></script>
     <script src="./script.js"></script>
   </body>
 </html>
