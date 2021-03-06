@@ -22,7 +22,6 @@ body {
 }
 h1 {
   color: #d8dee9;
-  /* width: 100%; */
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
@@ -60,6 +59,15 @@ select#country-select {
 }
 .graph-btn {
   padding: 0.5rem 1rem;
+  transition: all 0.5s;
+  border: 2px solid white;
+}
+.graph-btn:hover {
+  background: #2aa1c0;
+  border: 2px solid #2aa1c0;
+}
+.graph-btn:focus {
+  outline: none;
 }
 .control {
   display: block;
@@ -123,4 +131,12 @@ control:hover input ~ .control__indicator,
 }
 .hidden {
   display: none;
+}
+.today {
+  display: inline-block;
+  color: #2e3440;
+  background-color: #d8dee9;
+}
+.today-padding {
+  padding: 0.3rem 1rem;
 }

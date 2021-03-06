@@ -52,7 +52,7 @@
           <input type="radio" name="case" id="deaths" />
           <div class="control__indicator"></div>
         </label>
-        <label class="control control--radio"
+        <label class="control control--radio critical"
           >Critical
           <input type="radio" name="case" id="critical" />
           <div class="control__indicator"></div>
@@ -76,6 +76,7 @@
       </div>
     </div>
     <div class="graph-container hidden">
+      <p class="today"></p>
       <canvas id="chart"></canvas>
     </div>
     <script src="./Chart.js"></script>

@@ -15,7 +15,7 @@ const database = {
     americas: {},
   }
 }
-
+// Draw new chart
 const ctx = document.getElementById('chart');
 const covidChart = new Chart(ctx, {
     type: 'line',
@@ -77,13 +77,14 @@ const covidChart = new Chart(ctx, {
       }
     }
 });
-
+Chart.defaults.global.defaultFontColor = '#e6e6e6';
+// Function for fetching api data
 const fetchData = async (url) => {
   const data = await fetch(url, {mode: 'cors'});
   if (!data.ok) throw new Error(`Status Code Error: ${response.status}`);
   return data.json();
 };
-
+// Function to sort and create key and object of each country based on region
 const sortCountries = async (data) => {
   const countriesList = await data;
   countriesList.map(obj => {
@@ -92,7 +93,7 @@ const sortCountries = async (data) => {
   });
   return sortCovid(fetchData(database.apis.covidAPI))
 };
-
+// Function to find necessary COVID-19 data per country.
 const sortCovid = async (data) => {
   const covidData = await data;
   const db = database.countries;
@@ -104,6 +105,8 @@ const sortCovid = async (data) => {
           db[continent][country].critical = obj.latest_data.critical;
           db[continent][country].confirmed = obj.latest_data.confirmed;
           db[continent][country].recovered = obj.latest_data.recovered;
+          db[continent][country].today_deaths = obj.today.deaths;
+          db[continent][country].today_confirmed = obj.today.confirmed;
         }
       })
     }
@@ -111,7 +114,7 @@ const sortCovid = async (data) => {
   dropdownCountries(database.selectors.continent);
   updateChart();
 };
-
+// Function to change the dropdown of the countries depends on the continent selector
 const dropdownCountries = (continent) => {
   const dropdown = document.querySelector('#country-select');
   const baseHTML = `<option value="" disabled selected>Select Country</option>
@@ -137,7 +140,7 @@ const dropdownCountries = (continent) => {
       }
   }
 };
-
+// Function to remove all data from chart
 const removeChart = () => {
   const length = covidChart.data.labels.length;
     for (let i = 0; i < length;i++) {
@@ -148,15 +151,13 @@ const removeChart = () => {
     }
     covidChart.update();
 };
-
+// Function to fill data to the chart for all the continent / world
 const updateChart = () => {
   removeChart();
+  const today = document.querySelector('.today');
+  today.textContent = '';
+  today.classList.remove('today-padding');
   const graphContainer = document.querySelector('.graph-container').classList;
-  // if ([...graphContainer].includes('hidden')) {
-  //   setTimeout(() => graphContainer.remove('hidden'), 4000)
-  // }
-  
-  // document.querySelector('.graph-container').classList.remove('hidden');
     const type = database.selectors.case;
     const length = covidChart.data.labels.length;
     const continent = database.selectors.continent;
@@ -196,17 +197,27 @@ const updateChart = () => {
     }
     [...graphContainer].includes('hidden') ? graphContainer.remove('hidden') : '';
 };
-
+// Function to fill data to the chart only for one country if chosen
 const chartOneCountry = async () => {
   removeChart();
-  console.log(database.selectors.country);
   const url = `${database.apis.covidAPI}/${database.selectors.country}`;
   const countryData = await fetchData(url);
   const timeline = countryData.data.timeline;
-  console.log(countryData.data.timeline);
   const typesIndex = ['deaths','critical','confirmed','recovered'];
   const type = database.selectors.case;
   const index = typesIndex.indexOf(type);
+  const continents = ['asia','europe','africa','americas'];
+  const today = document.querySelector('.today');
+  today.classList.add('today-padding');
+  for (let i = 0; i<=4;i++) {
+    const current = database.countries[continents[i]];
+    if (`${database.selectors.country}` in current) {
+      const todayDetails = current[database.selectors.country];
+      console.log(todayDetails);
+      today.textContent = `Today deaths: ${todayDetails.today_deaths} | Today confirmed: ${todayDetails.today_confirmed} `;
+      i = 5;
+    }
+  }
   for (let i = timeline.length-1; i > 0; i-=14) {
     covidChart.data.labels.push(timeline[i].date);
     if (type === 'all') {
@@ -220,18 +231,18 @@ const chartOneCountry = async () => {
     covidChart.update(400);
   }
 };
-
+// Starting pulling the data with page load
 sortCountries(fetchData(database.apis.countriesAPI));
-Chart.defaults.global.defaultFontColor = '#e6e6e6';
-// Chart.defaults.global.animation.duration = '2000';
 
+// Event Listeners
 const continentSelectors = document.querySelectorAll('[type="radio"][name="continent"]');
 continentSelectors.forEach(e => {
   e.addEventListener('change', (e) => {
     database.selectors.country = 'all';
     database.selectors.continent = e.target.getAttribute('id');
-    console.log(e.target.getAttribute('id'));
     dropdownCountries(database.selectors.continent);
+    document.querySelector('input#critical').removeAttribute('disabled');
+    document.querySelector('label.critical').style.textDecoration = 'none';
   })
 });
 
@@ -239,13 +250,20 @@ const caseSelectors = document.querySelectorAll('[type="radio"][name="case"]');
 caseSelectors.forEach(e => {
   e.addEventListener('change', (e) => {
     database.selectors.case = e.target.getAttribute('id');
-    console.log(e.target.getAttribute('id'));
   })
 });
 
 const countrySelector = document.querySelector('select');
 countrySelector.addEventListener('click', (e) => {
   database.selectors.country = e.target.value;
+  if (database.selectors.country !== 'all' || database.selectors.country !== "") {
+    document.querySelector('input#critical').setAttribute('disabled','');
+    document.querySelector('label.critical').style.textDecoration = 'line-through';
+  } 
+  if (database.selectors.country === 'all' || database.selectors.country === "") {
+    document.querySelector('input#critical').removeAttribute('disabled');
+    document.querySelector('label.critical').style.textDecoration = 'none';
+  }
 });
 
 const viewGraphButton = document.querySelector('.graph-btn');
